@@ -26,8 +26,8 @@ export class PhysicsWorld {
       mass: 1,
       shape: new Sphere(radius),
       material: this.ballMaterial,
-      linearDamping: 0.25,
-      angularDamping: 0.4,
+      linearDamping: 0.1,
+      angularDamping: 0.25,
     })
     this.world.addBody(body)
     return body
