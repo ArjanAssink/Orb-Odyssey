@@ -1,0 +1,138 @@
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #1a1a2e;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  touch-action: none;
+  user-select: none;
+}
+
+#game-canvas {
+  display: block;
+  width: 100vw;
+  height: 100vh;
+}
+
+#ui-root {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* HUD */
+.hud {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px;
+}
+
+.hud-score {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  backdrop-filter: blur(6px);
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  padding: 8px 20px;
+  border-radius: 999px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+.hud-message {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  color: #fff;
+  font-size: clamp(2rem, 6vw, 4rem);
+  font-weight: 900;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.8);
+  text-align: center;
+  pointer-events: all;
+}
+
+.hud-message .sub {
+  font-size: 0.5em;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.hud-message.hidden {
+  display: none;
+}
+
+/* Menu */
+.menu {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  pointer-events: all;
+}
+
+.menu-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  padding: 32px;
+}
+
+.menu-title {
+  font-size: clamp(3rem, 10vw, 6rem);
+  font-weight: 900;
+  color: #fff;
+  letter-spacing: -2px;
+  background: linear-gradient(135deg, #4fc3f7, #b39ddb);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.menu-subtitle {
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.menu-button {
+  padding: 16px 48px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #4fc3f7, #7c4dff);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.15s, box-shadow 0.15s;
+  box-shadow: 0 4px 24px rgba(79, 195, 247, 0.4);
+}
+
+.menu-button:hover,
+.menu-button:focus-visible {
+  transform: scale(1.05);
+  box-shadow: 0 8px 32px rgba(79, 195, 247, 0.6);
+}
+
+.menu-button:active {
+  transform: scale(0.97);
+}
