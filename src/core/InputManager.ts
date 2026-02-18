@@ -22,7 +22,7 @@ export class InputManager {
   constructor() {
     window.addEventListener('keydown', this.onKeyDown)
     window.addEventListener('keyup', this.onKeyUp)
-    window.addEventListener('touchstart', this.onTouchStart, { passive: false })
+    window.addEventListener('touchstart', this.onTouchStart, { passive: true })
     window.addEventListener('touchmove', this.onTouchMove, { passive: false })
     window.addEventListener('touchend', this.onTouchEnd)
     window.addEventListener('touchcancel', this.onTouchEnd)
@@ -67,7 +67,6 @@ export class InputManager {
   }
 
   private onTouchStart = (e: TouchEvent): void => {
-    e.preventDefault()
     const t = e.touches[0]
     const now = performance.now()
     this.touchBuffer = [{ x: t.clientX, y: t.clientY, t: now }]
