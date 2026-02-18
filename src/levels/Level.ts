@@ -100,7 +100,13 @@ export class Level {
 
   private isGoalReached(): boolean {
     const gp = this.layout.goalPosition
-    const goal = new THREE.Vector3(gp[0], gp[1], gp[2])
-    return this.ball.position.distanceTo(goal) < 1.6
+    const bp = this.ball.position
+    // Check horizontal distance only — ball must be near the disc centre, not just touching its rim
+    const dx = bp.x - gp[0]
+    const dz = bp.z - gp[2]
+    const xzDist = Math.sqrt(dx * dx + dz * dz)
+    // Also require the ball to have slowed down (settled onto the platform, not flying through)
+    const speed = this.ball.body.velocity.length()
+    return xzDist < 0.55 && speed < 4
   }
 }

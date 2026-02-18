@@ -10,6 +10,7 @@ import { level1Layout } from './levels/level1/layout'
 import { HUD } from './ui/HUD'
 import { Menu } from './ui/Menu'
 import { AudioManager } from './audio/AudioManager'
+import { Fireworks } from './effects/Fireworks'
 
 // Tune these until the flick feel is right.
 // Screen velocity is in px/s; impulse is in cannon-es force units.
@@ -28,6 +29,7 @@ export class Game {
 
   private physics: PhysicsWorld
   private level: Level | null = null
+  private readonly fireworks: Fireworks
 
   constructor(canvas: HTMLCanvasElement, uiRoot: HTMLElement) {
     this.bus = new EventBus()
@@ -38,6 +40,7 @@ export class Game {
     this.hud = new HUD(uiRoot)
     this.audio = new AudioManager()
 
+    this.fireworks = new Fireworks(this.scene.scene)
     this.menu = new Menu(uiRoot, () => this.startLevel())
 
     this.loop = new GameLoop(
@@ -55,6 +58,8 @@ export class Game {
       this.stateMachine.transition('level-complete')
       this.audio.playLevelComplete()
       this.hud.showMessage('You did it! 🎉', 'Tap to play again')
+      const gp = level1Layout.goalPosition
+      this.fireworks.show(new THREE.Vector3(gp[0], gp[1], gp[2]))
     })
 
     this.bus.on('ball:fell', () => {
@@ -75,6 +80,7 @@ export class Game {
   private startLevel(): void {
     this.audio.init()
     this.level?.dispose()
+    this.fireworks.dispose()
     this.bus.clear()
 
     this.bus.on('collectible:picked', () => {
@@ -86,6 +92,8 @@ export class Game {
       this.stateMachine.transition('level-complete')
       this.audio.playLevelComplete()
       this.hud.showMessage('You did it! 🎉', 'Tap to play again')
+      const gp = level1Layout.goalPosition
+      this.fireworks.show(new THREE.Vector3(gp[0], gp[1], gp[2]))
     })
     this.bus.on('ball:fell', () => {
       this.level?.respawn()
@@ -101,6 +109,9 @@ export class Game {
   }
 
   private update(dt: number): void {
+    // Always tick fireworks so they play through the level-complete state
+    this.fireworks.update(dt)
+
     if (this.stateMachine.state !== 'playing' || !this.level) return
 
     // Desktop: continuous force from keyboard
