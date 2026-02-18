@@ -14,7 +14,7 @@ import type { LevelLayout } from '../Level'
 export const level1Layout: LevelLayout = {
   name: 'The Circuit',
   startPosition: [0, 1.5, 0],
-  goalPosition: [16, 0.5, -14],
+  goalPosition: [16, -1.675, -15],
   collectiblesRequired: 5,
 
   platforms: [
