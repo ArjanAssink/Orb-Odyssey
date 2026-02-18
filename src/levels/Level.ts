@@ -107,6 +107,6 @@ export class Level {
     const xzDist = Math.sqrt(dx * dx + dz * dz)
     // Also require the ball to have slowed down (settled onto the platform, not flying through)
     const speed = this.ball.body.velocity.length()
-    return xzDist < 0.55 && speed < 4
+    return xzDist < 1.0 && speed < 8
   }
 }

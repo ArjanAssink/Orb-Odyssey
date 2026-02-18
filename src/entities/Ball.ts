@@ -5,7 +5,7 @@ import type { PhysicsWorld } from '../physics/PhysicsWorld'
 import type { InputState } from '../core/InputManager'
 
 const RADIUS = 0.4
-const FORCE = 28
+const FORCE = 36
 const FALL_THRESHOLD = -15
 
 export class Ball {
